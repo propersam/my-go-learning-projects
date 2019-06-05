@@ -60,7 +60,7 @@ func addBookHandler(c echo.Context) error {
 	// Perform write operation transaction
 	txn, err := conn.BeginTx(ctx, nil)
 	stmt := "INSERT INTO books(ID, Title, Author, isbn) VALUES( ?, ?, ?, ?);"
-	_, err = txn.ExecContext(ctx, stmt, book.ID, book.Title, book.Author, book.ISBN)
+	_, err = txn.Exec(stmt, book.ID, book.Title, book.Author, book.ISBN)
 	if err != nil {
 		log.Println(err)
 		txn.Rollback()

@@ -85,7 +85,7 @@ func welcomeRouteHandler(c echo.Context) (err error) {
 // 		ID: uuid,
 // 	}
 
-// 	fetchQuery.QueryRowContext(context.Background(), id).Scan(&book.Title, &book.Author)
+// 	fetchQuery.QueryRowContext(ctx, id).Scan(&book.Title, &book.Author)
 
 // 	output := map[string]interface{}{
 // 		"books": book,
