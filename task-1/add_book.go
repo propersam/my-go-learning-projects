@@ -53,14 +53,15 @@ func addBookHandler(c echo.Context) error {
 	}
 	// Attempt to save book in database
 
-	// obtain exclusive connection for this write action
-	conn, err := db.Conn(ctx)
-	defer conn.Close() //return connection back to pool
+	// // obtain exclusive connection for this write action
+	// conn, err := db.Conn(ctx)
+	// defer conn.Close() //return connection back to pool
 
 	// Perform write operation transaction
-	txn, err := conn.BeginTx(ctx, nil)
-	stmt := "INSERT INTO books(ID, Title, Author, isbn) VALUES( ?, ?, ?, ?);"
-	_, err = txn.Exec(stmt, book.ID, book.Title, book.Author, book.ISBN)
+	txn, err := db.BeginTx(ctx, nil)
+	stmt := `INSERT INTO books(ID, Title, Author, isbn) 
+		VALUES( ?, ?, ?, ?);`
+	_, err = txn.ExecContext(ctx, stmt, book.ID, book.Title, book.Author, book.ISBN)
 	if err != nil {
 		log.Println(err)
 		txn.Rollback()
