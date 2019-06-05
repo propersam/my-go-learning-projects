@@ -9,11 +9,12 @@ import (
 	"github.com/labstack/echo"
 )
 
-var db sql.DB
+// Declaring global varibles
+var db *sql.DB
 var ctx context.Context
 
 func init() {
-	db = openDbPool()
+	db = createDbPool()
 	ctx = context.Background()
 }
 
@@ -23,7 +24,7 @@ func main() {
 
 	// Declaring Available routes
 	e.GET("/", welcomeRouteHandler)
-	// e.GET("/books/:id", getBookHandler)
+	// e.GET("/books/:id", showBookHandler)
 	e.POST("/books", addBookHandler)
 	// e.PUT("/books/:id", updateBook)
 	// e.DELETE("/books/:id", removeBook)

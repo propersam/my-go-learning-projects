@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-func openDbPool() sql.DB {
+func createDbPool() (db *sql.DB) {
 	// connecting to database
 	dsn := fmt.Sprintf("%s:%s@/%s", dbUser, dbPass, dbName)
 	db, err := sql.Open("mysql", dsn)
@@ -14,8 +14,9 @@ func openDbPool() sql.DB {
 		log.Fatal(err)
 	}
 
-	return *db
 	// db.SetMaxIdleConns()
 	// db.SetMaxOpenConns()
 	// db.SetConnMaxLifetime()
+
+	return
 }
